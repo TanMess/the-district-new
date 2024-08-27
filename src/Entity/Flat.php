@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\FlatRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: FlatRepository::class)]
 class Flat
@@ -15,9 +16,14 @@ class Flat
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min: 2, max: 50)]
+    #[Assert\NotBlank()]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\NotNull()]
+    #[Assert\Positive()]
+    #[Assert\LessThan(200)]
     private ?float $price = null;
 
     #[ORM\Column(type: Types::TEXT)]
