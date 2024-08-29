@@ -43,6 +43,11 @@ class FlatController extends AbstractController
           
             $entityManager->persist($flat);
             $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre plat a été ajouter avec succès !'
+            );
             return $this->redirectToRoute('app_flat');
         }
         return $this->render('pages/flat/new.html.twig', [

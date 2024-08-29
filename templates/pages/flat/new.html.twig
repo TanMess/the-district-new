@@ -2,9 +2,13 @@
 
 {% block body %}
 	<div class="container">
-		<h1 class="mt-4">Création d'un plat</h1>
+	{% for message in app.flashes('success') %}
+    <div class="alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+		<h1 class="mt-4">Ajout d'un plat</h1>
+		{{ form(form) }}
 	</div>
-	{{ form(form) }}
-    
 {% endblock %}
 

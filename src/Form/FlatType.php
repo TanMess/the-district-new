@@ -85,7 +85,7 @@ class FlatType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ],
-                'label' => 'Creer mon plat'
+                'label' => 'Ajouté le plat'
             ])
         ;
     }
