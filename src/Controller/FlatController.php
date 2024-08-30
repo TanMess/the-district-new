@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class FlatController extends AbstractController
 {
-    #[Route('/flat', name: 'flat', methods: ['GET'])]
+    #[Route('/flat', name: 'flat.index', methods: ['GET'])]
     public function index(FlatRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $flats = $paginator->paginate(
@@ -27,7 +27,7 @@ class FlatController extends AbstractController
             'flats' => $flats
         ]);
     }
-    #[Route('/plat/nouveau', name: 'app_flat', methods: ['GET', 'POST'])]
+    #[Route('/plat/nouveau', name: 'flat.new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, #[Autowire('%photo_dir%')] string $photodir): Response
     {
 
@@ -40,7 +40,7 @@ class FlatController extends AbstractController
                 $filename = uniqid() . '.' . $image->guessExtension();
                 $image->move($photodir, $filename);
             }
-          
+
             $entityManager->persist($flat);
             $entityManager->flush();
 
@@ -48,10 +48,23 @@ class FlatController extends AbstractController
                 'success',
                 'Votre plat a été ajouter avec succès !'
             );
-            return $this->redirectToRoute('app_flat');
+            return $this->redirectToRoute('flat.index');
         }
         return $this->render('pages/flat/new.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+
+    #[Route('/plat/edition/{id}', name: 'flat.edit', methods: ['GET', 'POST'])]
+    public function edit(FlatRepository $repository, int $id): Response
+    {
+        $flat = $repository->findOneBy(["id" => $id]);
+        $form = $this->createForm(FlatType::class, $flat);
+
+        return $this->render('pages/flat/edit.html.twig', [
+            'form' => $form->createView()
+
         ]);
     }
 }

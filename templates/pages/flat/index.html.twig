@@ -7,6 +7,12 @@
 	<div class="container mt-4">
 	{% if not flats.items is same as([]) %}
 		<h1>Plats</h1>
+		<a href="{{ path('flat.new')}}" class="btn btn-primary">Ajouter un plat</a>
+		{% for message in app.flashes('success') %}
+			<div class=" alert alert-success mt-4">
+				{{ message }}
+			</div>
+			{% endfor %}
 		<div class="count mt-4">
 			<h4>Il y a
 			{{ flats.getTotalItemCount}}
