@@ -31,7 +31,7 @@ class Flat
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private ?string $image = null;
 
     #[ORM\Column]

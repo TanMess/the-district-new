@@ -28,7 +28,7 @@ class FlatController extends AbstractController
         ]);
     }
     #[Route('/plat/nouveau', name: 'flat.new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, #[Autowire('%photo_dir%')] string $photodir): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, #[Autowire('%photo_dir%')] $photodir): Response
     {
 
         $flat = new Flat();
@@ -57,14 +57,16 @@ class FlatController extends AbstractController
 
 
     #[Route('/plat/edition/{id}', name: 'flat.edit', methods: ['GET', 'POST'])]
-    public function edit(FlatRepository $repository, int $id): Response
+    public function edit(FlatRepository $repository, int $id,): Response
     {
         $flat = $repository->findOneBy(["id" => $id]);
         $form = $this->createForm(FlatType::class, $flat);
-
+        
+        
         return $this->render('pages/flat/edit.html.twig', [
             'form' => $form->createView()
 
         ]);
     }
+   
 }

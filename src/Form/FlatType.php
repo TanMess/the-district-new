@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Flat;
+use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -62,10 +63,9 @@ class FlatType extends AbstractType
                     new Assert\NotBlank()
                 ]
             ])
-            ->add('image', FileType::class, [
+            ->add('image',  FileType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                'required' => false,
                 'mapped' => false
                 ],
                 'label_attr' =>[
@@ -73,7 +73,8 @@ class FlatType extends AbstractType
                 ],
                 'constraints' =>[
                     new Image (['maxSize' => '5000k'])
-                ]
+                ],
+                'required' => false
             ])
             ->add('active', RadioType::class, [
                 
