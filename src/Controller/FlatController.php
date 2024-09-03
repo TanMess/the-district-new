@@ -39,6 +39,7 @@ class FlatController extends AbstractController
             if ($image = $form['image']->getData()) {
                 $filename = uniqid() . '.' . $image->guessExtension();
                 $image->move($photodir, $filename);
+                $flat->setImage($filename);
             }
 
             $entityManager->persist($flat);
@@ -57,16 +58,48 @@ class FlatController extends AbstractController
 
 
     #[Route('/plat/edition/{id}', name: 'flat.edit', methods: ['GET', 'POST'])]
-    public function edit(FlatRepository $repository, int $id,): Response
-    {
-        $flat = $repository->findOneBy(["id" => $id]);
-        $form = $this->createForm(FlatType::class, $flat);
-        
-        
-        return $this->render('pages/flat/edit.html.twig', [
-            'form' => $form->createView()
-
-        ]);
+public function edit(Request $request, FlatRepository $repository, EntityManagerInterface $entityManager, #[Autowire('%photo_dir%')] $photodir, int $id): Response
+{
+    // Récupérer l'entité existante
+    $flat = $repository->findOneBy(["id" => $id]);
+    
+    // Si l'entité n'est pas trouvée, renvoyer une erreur 404
+    if (!$flat) {
+        throw $this->createNotFoundException('Le plat demandé n\'existe pas.');
     }
-   
+
+    // Sauvegarder l'ancien nom de fichier pour le cas où l'utilisateur ne télécharge pas une nouvelle image
+    $oldImageFilename = $flat->getImage();
+
+    $form = $this->createForm(FlatType::class, $flat);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        if ($image = $form['image']->getData()) {
+            // Si une nouvelle image est téléchargée, on remplace l'ancienne
+            $filename = uniqid() . '.' . $image->guessExtension();
+            $image->move($photodir, $filename);
+            $flat->setImage($filename);
+        } else {
+            // Si aucune nouvelle image n'est téléchargée, on conserve l'ancienne
+            $flat->setImage($oldImageFilename);
+        }
+
+        $entityManager->persist($flat);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'Votre plat a été mis à jour avec succès !'
+        );
+
+        return $this->redirectToRoute('flat.index');
+    }
+
+    return $this->render('pages/flat/edit.html.twig', [
+        'form' => $form->createView(),
+        'flat' => $flat 
+    ]);
+}
+
 }

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Flat;
+use App\Form\DataTransformer\FileToStringTransformer;
 use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -17,6 +18,13 @@ use Symfony\Component\Validator\Constraints\Image;
 
 class FlatType extends AbstractType
 {
+    private $fileTransformer;
+
+    public function __construct(FileToStringTransformer $fileTransformer)
+    {
+        $this->fileTransformer = $fileTransformer;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -66,7 +74,6 @@ class FlatType extends AbstractType
             ->add('image',  FileType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                'mapped' => false
                 ],
                 'label_attr' =>[
                     'class' => 'form-label mt-4'
@@ -74,7 +81,8 @@ class FlatType extends AbstractType
                 'constraints' =>[
                     new Image (['maxSize' => '5000k'])
                 ],
-                'required' => false
+                'required' => false,
+                'data_class' => null // Indique que ce champ peut accepter autre chose qu'une instance de File
             ])
             ->add('active', RadioType::class, [
                 
@@ -89,6 +97,9 @@ class FlatType extends AbstractType
                 'label' => 'Ajouté le plat'
             ])
         ;
+
+        // Ajouter le transformateur au champ 'image'
+        $builder->get('image')->addModelTransformer($this->fileTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
