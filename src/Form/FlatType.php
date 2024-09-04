@@ -17,12 +17,7 @@ use Symfony\Component\Validator\Constraints\Image;
 
 class FlatType extends AbstractType
 {
-    private $fileTransformer;
-
-    public function __construct(FileToStringTransformer $fileTransformer)
-    {
-        $this->fileTransformer = $fileTransformer;
-    }
+    
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -96,9 +91,6 @@ class FlatType extends AbstractType
                 'label' => 'Ajouté le plat'
             ])
         ;
-
-        // Ajouter le transformateur au champ 'image'
-        $builder->get('image')->addModelTransformer($this->fileTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

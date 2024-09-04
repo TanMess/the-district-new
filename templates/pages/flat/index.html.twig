@@ -29,6 +29,8 @@
 					<th scope="col">prix</th>
 					<th scope="col">image</th>
 					<th scope="col">active</th>
+					<th scope="col">Edition</th>
+					<th scope="col">Suppression</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,6 +42,12 @@
 						<td>{{ flat.price }}</td>
 						<td>{{ flat.image }}</td>
 						<td>{{ flat.active }}</td>
+						<td>
+						<a href="{{ path('flat.edit', { id: flat.id })}}" class="btn btn-info">Modifier</a>
+						</td>
+						<td>
+						<a href="{{ path('flat.delete', { id: flat.id })}}" class="btn btn-warning">Supprimer</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
