@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Flat;
 use App\Form\DataTransformer\FileToStringTransformer;
-use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
