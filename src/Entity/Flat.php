@@ -34,7 +34,7 @@ class Flat
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $image = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $active = null;
 
     public function getId(): ?int

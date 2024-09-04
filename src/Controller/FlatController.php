@@ -105,17 +105,9 @@ class FlatController extends AbstractController
     #[Route('/plat/suppression/{id}', name: 'flat.delete', methods: ['GET'])]
     public function delete(EntityManagerInterface $manager, Flat $flat): Response
     {
-
-        if (!$flat) {
-            $this->addFlash(
-                'success',
-                'Votre plat n\'a pas été trouvé !'
-            );
-
-            return $this->redirectToRoute('flat.index');
-        }
         $manager->remove($flat);
         $manager->flush();
+        
         $this->addFlash(
             'success',
             'Votre plat a été supprimé avec succès !'
