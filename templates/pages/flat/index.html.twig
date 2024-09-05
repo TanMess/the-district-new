@@ -45,10 +45,10 @@
 						<td>{{ flat.active }}</td>
 						<td>{{ flat.category }}</td>
 						<td>
-						<a href="{{ path('flat.edit', { id: flat.id })}}" class="btn btn-info">Modifier</a>
+						<a href="{{ path('flat.edit', { id: flat.id })}}" class="btn btn-success">Modifier</a>
 						</td>
 						<td>
-						<a href="{{ path('flat.delete', { id: flat.id })}}" class="btn btn-info">Supprimer</a>
+						<a href="{{ path('flat.delete', { id: flat.id })}}" class="btn btn-danger">Supprimer</a>
 						</td>
 					</tr>
 				{% endfor %}

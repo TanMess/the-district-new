@@ -34,15 +34,15 @@
 			<tbody>
 				{% for category in categorys %}
 					<tr class="table-primary">
-						<th scope="row">{{ category.id }}</th>
+						<th scope="row ">{{ category.id }}</th>
 						<td>{{ category.name }}</td>
 						<td>{{ category.image }}</td>
 						<td>{{ category.active }}</td>
 						<td>
-						<a href="{{ path('category.edit', { id: category.id })}}" class="btn btn-info">Modifier</a>
+						<a href="{{ path('category.edit', { id: category.id })}}" class="btn btn-success">Modifier</a>
 						</td>
 						<td>
-						<a href="{{ path('category.delete', { id: category.id })}}" class="btn btn-warning">Supprimer</a>
+						<a href="{{ path('category.delete', { id: category.id })}}" class="btn btn-danger">Supprimer</a>
 						</td>
 					</tr>
 				{% endfor %}
