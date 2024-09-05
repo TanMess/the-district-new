@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Contact;
 use App\Entity\Flat;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -19,18 +20,14 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < 50; $i++) {
+            $contact = new Contact();
+            $contact->setFullName($this->faker->name())
+                ->setEmail($this->faker->email())
+                ->setSubject('demande n°' . ($i +1))
+                ->setMessage($this->faker->text());
 
-            $flat = new Flat();
-            $flat->setName($this->faker->word());
-            $flat->setDescription('riz poulet');
-            $flat->setImage('riz poulet');
-            $flat->setActive('true')
-                ->setPrice(mt_rand(0,100));
-
-            $manager->persist($flat);
+                $manager->persist($contact);
         }
-
-
         $manager->flush();
     }
 }
