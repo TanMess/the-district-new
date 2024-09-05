@@ -61,7 +61,7 @@ class CategoryType extends AbstractType
                 ],
                 'label' => 'Ajouté la catégorie'
             ])
-        ;
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

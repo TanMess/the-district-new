@@ -84,6 +84,7 @@ class FlatType extends AbstractType
                     'class' => 'form-label mt-4'
                 ]
             ])
+            ->add('category')
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
