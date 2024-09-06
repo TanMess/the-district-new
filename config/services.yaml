@@ -20,6 +20,11 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    App\EntityListener\:
+        ressource: "../src/EntityListener/"
+        tags: ["doctrine.orm.entity_listener"]
+    
     App\Form\DataTransformer\FileToStringTransformer:
         arguments:
             $photoDir: '%photo_dir%'
