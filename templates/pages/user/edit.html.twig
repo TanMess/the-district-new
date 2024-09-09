@@ -1,9 +1,12 @@
-{% extends "base.html.twig" %}
-{% block title %}TheDistrict - Modification d'une categorie'
+{% extends 'base.html.twig' %}
+
+{% block title %}TheDistrict - Modification de l'utilisateur
 {% endblock %}
+
 {% block body %}
+
 	<div class="container">
-		<h1 class="mt-4">Modification d'une catégorie</h1>
+		<h1 class="mt-4">Formulaire de modification d'un utilisateur</h1>
 		{% for message in app.flashes('success') %}
 			<div class=" alert alert-success mt-4">
 				{{ message }}
@@ -11,5 +14,6 @@
 		{% endfor %}
 		{{ form(form) }}
 		</div>
+
 	{% endblock %}
 
