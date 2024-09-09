@@ -3,12 +3,12 @@
 namespace App\DataFixtures;
 
 use App\Entity\Contact;
-use App\Entity\Flat;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
@@ -38,6 +38,7 @@ class AppFixtures extends Fixture
                 ->setRoles(['ROLE_USER'])
                 ->setPlainPassword('password');
 
+                $users[] = $user;
                 $manager->persist($user);
 
         }
