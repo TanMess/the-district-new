@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -49,25 +48,7 @@ class UserType extends AbstractType
                     new Assert\Length(['min' => 2, 'max' => 50]),
                 ]
             ])
-            ->add('email', EmailType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                    'minlength' => '2',
-                    'maxlength' => '180'                
-                ],
-                'label' => 'Adresse email',
-                'label_attr' =>[
-                    'class' => 'form-label mt-4'
-                ],
-                'constraints' => [
-                    new Assert\Length(['min' => 2, 'max' => 180]),
-                    new Assert\NotBlank(),
-                    new Assert\Email()
-                ]
-            ])
-            ->add('PlainPassword', RepeatedType::class, [
-                'type' =>PasswordType::class,
-                'first_options' => [
+            ->add('PlainPassword', PasswordType::class, [
                     'attr' => [
                         'class' => 'form-control'
                     ],
@@ -75,25 +56,13 @@ class UserType extends AbstractType
                     'label_attr' => [
                         'class' => 'form-label mt-4'
                     ]
-                ],
-                'second_options' => [
-                    'attr' => [
-                        'class' => 'form-control'
-                    ],
-                    'label' => 'Confirmation du mot de passe',
-                    'label_attr' => [
-                        'class' => 'form-label mt-4'
-                    ]
-                ],
-                'invalid_message' => 'Les mots de passe ne correspondent pas'
+                
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ],
             ]);
-        
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
