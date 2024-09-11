@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserPasswordType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,11 +41,7 @@ class UserController extends AbstractController
                 );
 
                 return $this->redirectToRoute('flat.index');
-            } else{
-                $this->addFlash(
-                'warning',
-                'Le mot de passe renseigné est incorrect !'
-            );
+            
         }
     }
 
@@ -52,4 +49,38 @@ class UserController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/utilisateur/edition-mot-de-passe/{id}', name: 'user.edit.password', methods: ['GET', 'POST'])]
+    public function EditPassword(User $user, Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $manager): Response{
+
+        $form = $this->createForm(UserPasswordType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($hasher->isPasswordValid($user, $form->getData()['PlainPassword'])) {
+                $user->setPlainPassword(
+                    $form->getData()['newPassword']
+                );
+                $this->addFlash(
+                    'success',
+                    'Votre mot de passe a bien été modifié !'
+                );
+                $manager->persist($user);
+                $manager->flush();
+
+
+            return $this->redirectToRoute('flat.index');
+
+            
+        }
+    }
+
+        return $this->render('pages/user/edit_password.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 }
+
+
+
+
