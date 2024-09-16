@@ -15,6 +15,21 @@ class CategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Category::class);
     }
+    public function findPublicCategory(?int $nbcategory): array
+    {
+        sleep(3);
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->where('r.active = 1');
+
+
+        if ($nbcategory !== 0 || $nbcategory !== null) {
+            $queryBuilder->setMaxResults($nbcategory);
+        }
+
+        return $queryBuilder->getQuery()
+            ->getResult();
+    }
+
 
     //    /**
     //     * @return Category[] Returns an array of Category objects

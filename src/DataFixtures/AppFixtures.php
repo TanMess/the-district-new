@@ -27,6 +27,7 @@ class AppFixtures extends Fixture
                 ->setSubject('demande n°' . ($i +1))
                 ->setMessage($this->faker->text());
 
+                $contacts[] = $contact;
                 $manager->persist($contact);
         }
 
@@ -42,6 +43,10 @@ class AppFixtures extends Fixture
                 $manager->persist($user);
 
         }
+
+        
+
+
 
         $manager->flush();
     }

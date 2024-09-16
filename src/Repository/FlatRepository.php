@@ -16,6 +16,21 @@ class FlatRepository extends ServiceEntityRepository
         parent::__construct($registry, Flat::class);
     }
 
+    public function findPublicFlat(?int $nbFlat): array
+    {
+        sleep(3);
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->where('r.active = 1');
+
+
+        if ($nbFlat !== 0 || $nbFlat !== null) {
+            $queryBuilder->setMaxResults($nbFlat);
+        }
+
+        return $queryBuilder->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Flat[] Returns an array of Flat objects
     //     */

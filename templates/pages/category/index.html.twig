@@ -48,6 +48,10 @@
 				{% endfor %}
 			</tbody>
 		</table>
+		<div class="navigation d-flex justify-content-center mt-4">
+				{{ knp_pagination_render(categorys) }}
+			</div>
+
 	{% else %}
 		<h4>Il n'y a pas de catégorie</h4>
 	{% endif %}

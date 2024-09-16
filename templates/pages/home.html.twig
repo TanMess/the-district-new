@@ -5,15 +5,56 @@
 {% endblock %}
 
 {% block body %}
+		<div class="container mt-4">
+		<h2>Catégories</h2>
 
-	<div class="container mt-4">
-		<div class="jumbotron">
-			<h1 class="display-4">Bienvenue sur TheDistrict</h1>
-			<p class="lead">TheDistrict est un restaurant qui permet aux clients de commander en ligne</p>
-			<hr class="my-4">
-			<p>Rendez-vous sur le formulaire d'inscription pour pouvoir passer une commande auprès de notre restaurant</p>
-			<a class="btn btn-primary btn-lg" href="#" role="button">Inscription</a>
-		</div>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Numéro</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Image</th>
+					<th scope="col">active</th>
+				</tr>
+			</thead>
+			<tbody>
+					{% for category in categorys %}
+					<tr class="table-primary">
+						<th scope="row ">{{ category.id }}</th>
+						<td>{{ category.name }}</td>
+						<td>{{ category.image }}</td>
+						<td>{{ category.active }}</td>
+						<td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<h2>Plats</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">Numéro</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Description</th>
+					<th scope="col">prix</th>
+					<th scope="col">image</th>
+					<th scope="col">active</th>
+					<th scope="col">categorie</th>
+				</tr>
+			</thead>
+		<tbody>
+				{% for flat in flats %}
+					<tr class="table-primary">
+						<th scope="row">{{ flat.id }}</th>
+						<td>{{ flat.name }}</td>
+						<td>{{ flat.description }}</td>
+						<td>{{ flat.price }}</td>
+						<td>{{ flat.image }}</td>
+						<td>{{ flat.active }}</td>
+						<td>{{ flat.category }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
 	</div>
 
 
