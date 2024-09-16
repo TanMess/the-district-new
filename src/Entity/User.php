@@ -24,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     #[Assert\Length(min: 2, max: 50)]
     #[Assert\NotBlank()]
-    private ?string $fullName = null;
+    private ?string $fullName;
 
     #[ORM\Column(length: 50, nullable: true)]
     #[Assert\Length(min: 2, max: 50)]
@@ -33,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     #[Assert\Length(min: 2, max: 180)]
     #[Assert\Email()]
-    private ?string $email = null;
+    private ?string $email;
 
     /**
      * @var list<string> The user roles
