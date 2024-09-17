@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Flat;
+use App\Entity\Mark;
 use App\Form\FlatType;
+use App\Form\MarkType;
 use App\Repository\FlatRepository;
+use App\Repository\MarkRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -115,4 +118,46 @@ class FlatController extends AbstractController
 
         return $this->redirectToRoute('flat.index');
     }
+
+
+    #[Route('/plat/{id}', 'flat.show', methods: ['GET', 'POST'])]
+    public function show(
+        Flat $flat, Request $request, MarkRepository $markRepository, EntityManagerInterface $manager): Response {
+
+        $mark = new Mark();
+        $form = $this->createForm(MarkType::class, $mark);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $mark->setUser($this->getUser())
+            ->setFlat($flat);
+
+            $existingMark = $markRepository->findOneBy([
+                'user' => $this->getUser(),
+                'flat' => $flat
+            ]);
+            if(!$existingMark) {
+                $manager->persist($mark);
+            } else {
+                $existingMark->setMark(
+                    $form->getData()->getMark()
+                );
+            }
+
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre note a bien été prise en compte.'
+            );
+
+            return $this->redirectToRoute('flat.show', ['id' => $flat->getId()]);
+        }
+        return $this->render('pages/flat/show.html.twig', [
+            'flat' => $flat,
+            'form' => $form->createView()
+        ]);
+    }
 }
+
+

@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	TheDistrict -
+	{{ flat.name }}
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<h1 class="mt-4">{{ flat.name }}</h1>
+
+		<p>La moyenne de ce plat est de
+			{{ flat.average|number_format(2, '.', ',') }}
+			/5</p>
+
+		
+
+		<div class="mt-4">
+			{% if flat.price %}
+				<p>Prix (en €) :
+					{{ flat.price }}</p>
+			{% else %}
+				<p>Prix non renseigné</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			{{ flat.description|raw }}
+		</div>
+
+		<div class="mark mt-4">
+			{{ form(form) }}
+			</div>
+
+		</div>
+	{% endblock %}

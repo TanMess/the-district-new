@@ -29,7 +29,7 @@ class Mark
     #[ORM\JoinColumn(nullable: false)]
     private ?user $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'marks')]
+    #[ORM\ManyToOne(targetEntity: Flat::class, inversedBy: 'marks')]
     #[ORM\JoinColumn(nullable: false)]
     private ?flat $flat = null;
 
