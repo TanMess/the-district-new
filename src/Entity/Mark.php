@@ -25,7 +25,7 @@ class Mark
     #[Assert\LessThan(6)]
     private ?int $mark = null;
 
-    #[ORM\ManyToOne(inversedBy: 'marks')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'marks')]
     #[ORM\JoinColumn(nullable: false)]
     private ?user $user = null;
 

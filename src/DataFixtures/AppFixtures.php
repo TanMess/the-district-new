@@ -65,7 +65,7 @@ class AppFixtures extends Fixture
                 ->setPrice(mt_rand(0, 1) == 1 )
                 ->setCategory($categorys[mt_rand(0, count($categorys) - 1)]);
 
-            $recipes[] = $flat;
+            $flats[] = $flat;
             $manager->persist($flat);
         }
 
