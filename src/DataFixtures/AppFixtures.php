@@ -2,7 +2,10 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Contact;
+use App\Entity\Flat;
+use App\Entity\Mark;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -44,10 +47,45 @@ class AppFixtures extends Fixture
 
         }
 
+        $categorys = [];
+        for ($i = 0; $i < 25; $i++) {
+            $category = new Category();
+            $category->setName($this->faker->word());
+
+            $categorys[] = $category;
+            $manager->persist($category);
+        }
+
+
+        $flats = [];
+        for ($i = 0; $i < 25; $i++) {
+            $flat = new Flat();
+            $flat->setName($this->faker->word())
+                ->setDescription($this->faker->text(300))
+                ->setPrice(mt_rand(0, 1) == 1 )
+                ->setCategory($categorys[mt_rand(0, count($categorys) - 1)]);
+
+            $recipes[] = $flat;
+            $manager->persist($flat);
+        }
+
+
         
+        foreach ($flats as $flat) {
+            for ($i = 0; $i < mt_rand(0, 4); $i++) {
+                $mark = new Mark;
+                $mark->setMark(mt_rand(1, 5))
+                    ->setUser($users[mt_rand(0, count($users) - 1)])
+                    ->setFlat($flat);
+
+                $manager->persist($mark);
+            }
+        }
 
 
-
+        
         $manager->flush();
     }
+
+    
 }

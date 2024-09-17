@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FlatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -22,7 +24,7 @@ class Flat
     #[Assert\NotBlank()]
     private ?string $name = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'float')]
     #[Assert\NotNull()]
     #[Assert\Positive()]
     #[Assert\LessThan(200)]
@@ -40,6 +42,17 @@ class Flat
     #[ORM\ManyToOne(inversedBy: 'plats')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    /**
+     * @var Collection<int, Mark>
+     */
+    #[ORM\OneToMany(targetEntity: Mark::class, mappedBy: 'flat', orphanRemoval: true)]
+    private Collection $marks;
+
+    public function __construct()
+    {
+        $this->marks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -114,6 +127,36 @@ class Flat
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mark>
+     */
+    public function getMarks(): Collection
+    {
+        return $this->marks;
+    }
+
+    public function addMark(Mark $mark): static
+    {
+        if (!$this->marks->contains($mark)) {
+            $this->marks->add($mark);
+            $mark->setFlat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMark(Mark $mark): static
+    {
+        if ($this->marks->removeElement($mark)) {
+            // set the owning side to null (unless already changed)
+            if ($mark->getFlat() === $this) {
+                $mark->setFlat(null);
+            }
+        }
 
         return $this;
     }
