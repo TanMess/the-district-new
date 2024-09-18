@@ -39,11 +39,6 @@ class FlatController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $flat = $form->getData();
-            if ($image = $form['image']->getData()) {
-                $filename = uniqid() . '.' . $image->guessExtension();
-                $image->move($photodir, $filename);
-                $flat->setImage($filename);
-            }
 
             $entityManager->persist($flat);
             $entityManager->flush();
@@ -71,22 +66,13 @@ class FlatController extends AbstractController
             throw $this->createNotFoundException('Le plat demandé n\'existe pas.');
         }
 
-        // Sauvegarder l'ancien nom de fichier pour le cas où l'utilisateur ne télécharge pas une nouvelle image
-        $oldImageFilename = $flat->getImage();
+       
 
         $form = $this->createForm(FlatType::class, $flat);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($image = $form['image']->getData()) {
-                // Si une nouvelle image est téléchargée, on remplace l'ancienne
-                $filename = uniqid() . '.' . $image->guessExtension();
-                $image->move($photodir, $filename);
-                $flat->setImage($filename);
-            } else {
-                // Si aucune nouvelle image n'est téléchargée, on conserve l'ancienne
-                $flat->setImage($oldImageFilename);
-            }
+            $flat = $form->getData();
 
             $entityManager->persist($flat);
             $entityManager->flush();

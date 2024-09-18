@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Flat;
 use App\Form\DataTransformer\FileToStringTransformer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -14,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Image;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class FlatType extends AbstractType
 {
@@ -65,7 +65,8 @@ class FlatType extends AbstractType
                     new Assert\NotBlank()
                 ]
             ])
-            ->add('image',  FileType::class, [
+            ->add('imageFile',  VichImageType::class, [
+                'label' => 'image du plat',
                 'attr' => [
                     'class' => 'form-control',
                 ],
