@@ -88,7 +88,7 @@ class FlatType extends AbstractType
             ->add('active', CheckboxType::class, [
                 
                 'label_attr' =>[
-                    'class' => 'form-label mt-4 mb-4'
+                    'class' => 'form-label mt-4'
                 ]
             ])
             ->add('category')
