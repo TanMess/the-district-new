@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Mark;
 use App\Form\CategoryType;
+use App\Form\MarkType;
 use App\Repository\CategoryRepository;
+use App\Repository\MarkRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,7 +59,7 @@ class CategoryController extends AbstractController
 
 
     #[Route('/category/edition/{id}', name: 'category.edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, CategoryRepository $repository, EntityManagerInterface $entityManager, #[Autowire('%photo_dir%')] $photodir, int $id): Response
+    public function edit(Request $request, CategoryRepository $repository, EntityManagerInterface $entityManager, $id): Response
     {
         // Récupérer l'entité existante
         $category = $repository->findOneBy(["id" => $id]);
@@ -103,6 +106,7 @@ class CategoryController extends AbstractController
 
         return $this->redirectToRoute('category.index');
         }
+
 
     
 }

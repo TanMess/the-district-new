@@ -3,6 +3,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -51,7 +52,7 @@ class CategoryType extends AbstractType
                 'required' => false,
                 'data_class' => null // Indique que ce champ peut accepter autre chose qu'une instance de File
             ])
-            ->add('active', RadioType::class, [
+            ->add('active', CheckboxType::class, [
                 
                 'label_attr' =>[
                     'class' => 'form-label mt-4'

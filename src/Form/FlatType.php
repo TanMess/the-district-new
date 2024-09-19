@@ -4,7 +4,13 @@ namespace App\Form;
 
 use App\Entity\Flat;
 use App\Form\DataTransformer\FileToStringTransformer;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -79,17 +85,19 @@ class FlatType extends AbstractType
                 'required' => false,
                 'data_class' => null // Indique que ce champ peut accepter autre chose qu'une instance de File
             ])
-            ->add('active', RadioType::class, [
+            ->add('active', CheckboxType::class, [
                 
                 'label_attr' =>[
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label mt-4 mb-4'
                 ]
             ])
             ->add('category')
+
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ],
+                
                 'label' => 'Ajouté le plat'
             ])
         ;

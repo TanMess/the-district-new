@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
-{% block title %}SymRecipe - Nouvelle recette
+{% block title %}TheDistrict - Nouvelle categorie
 {% endblock %}
 
 {% block body %}
 	<div class="container">
 
-		<h1 class="mt-4">Création d'une recette</h1>
+		<h1 class="mt-4">Création d'une categorie</h1>
 
 		{{ form_start(form) }}
 
@@ -19,64 +19,19 @@
 		</div>
 
 		<div class="form-group">
-			{{ form_label(form.time) }}
-			{{ form_widget(form.time) }}
+			{{ form_label(form.active) }}
+			{{ form_widget(form.active) }}
 			<div class="form-error">
-				{{ form_errors(form.time) }}
+				{{ form_errors(form.active) }}
 			</div>
 		</div>
 
 		<div class="form-group">
-			{{ form_label(form.nbPeople) }}
-			{{ form_widget(form.nbPeople) }}
+			{{ form_label(form.imageFile) }}
+			{{ form_widget(form.imageFile) }}
 			<div class="form-error">
-				{{ form_errors(form.nbPeople) }}
+				{{ form_errors(form.imageFile) }}
 			</div>
-		</div>
-
-		<div class="form-group">
-			{{ form_label(form.difficulty) }}
-			{{ form_widget(form.difficulty) }}
-			<div class="form-error">
-				{{ form_errors(form.difficulty) }}
-			</div>
-		</div>
-
-		<div class="form-group">
-			{{ form_label(form.description) }}
-			{{ form_widget(form.description) }}
-			<div class="form-error">
-				{{ form_errors(form.description) }}
-			</div>
-		</div>
-
-		<div class="form-group">
-			{{ form_label(form.price) }}
-			{{ form_widget(form.price) }}
-			<div class="form-error">
-				{{ form_errors(form.price) }}
-			</div>
-		</div>
-
-		<div class="form-group mt-4">
-			{{ form_widget(form.isFavorite) }}
-			{{ form_label(form.isFavorite) }}
-			<div class="form-error">
-				{{ form_errors(form.isFavorite) }}
-			</div>
-		</div>
-
-		{{ form_row(form.imageFile) }}
-
-		{{ form_label(form.ingredients) }}
-		<br>
-		<div id="ingredients-wrapper">
-			{% for field in form.ingredients %}
-				<div style="min-width: 10%;">
-					{{ form_widget(field) }}
-					{{ form_label(field) }}
-				</div>
-			{% endfor %}
 		</div>
 
 		{{ form_end(form) }}
