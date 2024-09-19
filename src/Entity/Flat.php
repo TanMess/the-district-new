@@ -50,7 +50,7 @@ class Flat
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
 
-    #[ORM\ManyToOne(inversedBy: 'plats')]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'plats')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 

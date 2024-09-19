@@ -39,7 +39,8 @@
 						<th scope="row">{{ flat.id }}</th>
 						<td>{{ flat.name }}</td>
 						<td>{{ flat.description }}</td>
-						<td>{{ flat.price }}</td>
+						<td>{{ flat.price|number_format(2, '.', ',') }}€
+						</td>
 						<td>{{ flat.active }}</td>
 						<td>{{ flat.category }}</td>
 						<td>

@@ -30,7 +30,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/category/nouveau', name: 'category.new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, #[Autowire('%photo_dir%')] $photodir): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
 
         $category = new Category();
@@ -38,11 +38,7 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $category = $form->getData();
-            if ($image = $form['image']->getData()) {
-                $filename = uniqid() . '.' . $image->guessExtension();
-                $image->move($photodir, $filename);
-                $category->setImage($filename);
-            }
+            
 
             $entityManager->persist($category);
             $entityManager->flush();
@@ -70,23 +66,13 @@ class CategoryController extends AbstractController
             throw $this->createNotFoundException('La catégorie demandé n\'existe pas.');
         }
 
-        // Sauvegarder l'ancien nom de fichier pour le cas où l'utilisateur ne télécharge pas une nouvelle image
-        $oldImageFilename = $category->getImage();
+        
 
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($image = $form['image']->getData()) {
-                // Si une nouvelle image est téléchargée, on remplace l'ancienne
-                $filename = uniqid() . '.' . $image->guessExtension();
-                $image->move($photodir, $filename);
-                $category->setImage($filename);
-            } else {
-                // Si aucune nouvelle image n'est téléchargée, on conserve l'ancienne
-                $category->setImage($oldImageFilename);
-            }
-
+            
             $entityManager->persist($category);
             $entityManager->flush();
 

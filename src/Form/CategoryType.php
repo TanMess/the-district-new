@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Image;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class CategoryType extends AbstractType
 {
@@ -36,7 +37,8 @@ class CategoryType extends AbstractType
             ])
             
         
-            ->add('image',  FileType::class, [
+            ->add('imageFile',  VichImageType::class, [
+                'label' => 'image du plat',
                 'attr' => [
                     'class' => 'form-control',
                 ],
