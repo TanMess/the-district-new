@@ -8,12 +8,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Mailer\MailerInterface;
 
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'contact.index')]
-    public function index(Request $request, EntityManagerInterface $manager): Response
+    public function index(Request $request, EntityManagerInterface $manager, MailerInterface $mailer): Response
     {
         
         $contact = new Contact();
@@ -29,6 +31,19 @@ class ContactController extends AbstractController
 
             $manager->persist($contact);
             $manager->flush();
+
+            $email = (new Email())
+            ->from('mailtrap@example.com')
+            ->to('newuser@example.com')
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Time for Symfony Mailer!')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>');
+
+        $mailer->send($email);
 
             $this->addFlash(
                 'success',
