@@ -8,7 +8,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -36,13 +35,9 @@ class UserCrudController extends AbstractCrudController
                 ->hideOnForm(),
             TextField::new('fullName'),
             TextField::new('pseudo'),
-            TextField::new('email')
-                ->hideOnForm(),
+            TextField::new('email'),
             ArrayField::new('roles')
-                ->hideOnIndex(),
-            DateTimeField::new('createdAt')
-                ->hideOnForm()
-        ];
+                ];
     }
 }
 

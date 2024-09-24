@@ -55,7 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     
 
-    #[ORM\Column]
+    #[ORM\Column (nullable: true)]
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt = null;
 

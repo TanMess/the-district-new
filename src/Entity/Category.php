@@ -33,7 +33,7 @@ class Category
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $imageName = null;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     #[Assert\NotNull()]
     private \DateTimeImmutable $updatedAt;
 
