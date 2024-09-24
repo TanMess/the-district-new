@@ -30,7 +30,6 @@ class ContactController extends AbstractController
             $email = (new Email())
             ->from($contact->getEmail())
             ->to('admin@thedistrict.com')
-
             ->subject($contact->getSubject())
             ->html($contact->getMessage());
 

@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -55,6 +57,12 @@ class UserPasswordType extends AbstractType
                 'class' => 'btn btn-primary mt-4'
             ],
             'label' => 'Envoyé'
+        ])
+
+        ->add('captcha', Recaptcha3Type::class, [
+            'constraints' => new Recaptcha3(),
+            'action_name' => 'homepage',
+            'locale' => 'de',
         ]);
     }
 }

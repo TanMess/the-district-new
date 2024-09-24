@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Flat;
 use App\Form\DataTransformer\FileToStringTransformer;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -100,7 +102,11 @@ class FlatType extends AbstractType
                 
                 'label' => 'Ajouté le plat'
             ])
-        ;
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'homepage',
+                'locale' => 'de',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
