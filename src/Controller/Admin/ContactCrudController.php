@@ -25,9 +25,8 @@ class ContactCrudController extends AbstractCrudController
 
             ->setPageTitle("index", "TheDistrict - Administration des demandes de contact")
 
-            ->setPaginatorPageSize(20)
+            ->setPaginatorPageSize(20);
 
-            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 
 

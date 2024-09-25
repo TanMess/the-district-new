@@ -1536,19 +1536,7 @@
             "time": "2024-01-02T13:46:09+00:00"
         },
         {
-            "name": "friendsofsymfony/ckeditor-bundle",
-            "version": "2.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle.git",
-                "reference": "9d4cd4f2db4d800164b9c3051e4bfdee21acb27f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSCKEditorBundle/zipball/9d4cd4f2db4d800164b9c3051e4bfdee21acb27f",
-                "reference": "9d4cd4f2db4d800164b9c3051e4bfdee21acb27f",
-                "shasum": ""
-            },
+            
             "require": {
                 "ext-json": "*",
                 "ext-zip": "*",
@@ -1578,20 +1566,15 @@
                 "symfony/phpunit-bridge": "^5.4 || ^6.0 || ^7.0",
                 "symfony/yaml": "^5.4 || ^6.0 || ^7.0"
             },
-            "suggest": {
-                "egeloen/form-extra-bundle": "Allows to load CKEditor asynchronously"
-            },
+           
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
                     "dev-master": "3.x-dev"
                 }
             },
-            "autoload": {
-                "psr-4": {
-                    "FOS\\CKEditorBundle\\": "src/"
-                }
-            },
+            
+            
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -1600,20 +1583,11 @@
                 {
                     "name": "Eric GELOEN",
                     "email": "geloen.eric@gmail.com"
-                },
-                {
-                    "name": "FriendsOfSymfony Community",
-                    "homepage": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/graphs/contributors"
                 }
+                
             ],
-            "description": "Provides a CKEditor integration for your Symfony project.",
-            "keywords": [
-                "CKEditor"
-            ],
-            "support": {
-                "issues": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/issues",
-                "source": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/tree/2.5.0"
-            },
+            
+            
             "time": "2024-01-23T15:35:55+00:00"
         },
         {
