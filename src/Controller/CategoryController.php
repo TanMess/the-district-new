@@ -11,10 +11,12 @@ use App\Repository\MarkRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class CategoryController extends AbstractController
 {
@@ -22,8 +24,13 @@ class CategoryController extends AbstractController
     public function index(CategoryRepository $repository, PaginatorInterface $paginator, Request $request): Response
 
     {
+        $cache = new FilesystemAdapter();
+        $data = $cache->get('CategoryCache', function (ItemInterface $item) use($repository){
+            $item->expiresAfter(15);
+            return $repository->findPublicCategory(null);
+        });
         $categorys = $paginator->paginate(
-            $repository->findAll(),
+            $data,
             $request->query->getInt('page', 1),
             10
         );

@@ -11,18 +11,25 @@ use App\Repository\MarkRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class FlatController extends AbstractController
 {
     #[Route('/flat', name: 'flat.index', methods: ['GET'])]
     public function index(FlatRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+        $cache = new FilesystemAdapter();
+        $data = $cache->get('flatCache', function (ItemInterface $item) use($repository){
+            $item->expiresAfter(15);
+            return $repository->findPublicFlat(null);
+        }); 
         $flats = $paginator->paginate(
-            $repository->findAll(),
+            $data,
             $request->query->getInt('page', 1),
             10
         );

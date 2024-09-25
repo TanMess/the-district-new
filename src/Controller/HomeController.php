@@ -15,9 +15,10 @@ class HomeController extends AbstractController
             CategoryRepository $category,
             FlatRepository $flat
         ): Response {
+            
             return $this->render('pages/home.html.twig', [
-                'categorys' => $category->findPublicCategory(3),
-                'flats' => $flat->findPublicFlat(3)
+                'categorys' => $category->findPublicCategory(5),
+                'flats' => $flat->findPublicFlat(5)
             ]);
         }
     }
