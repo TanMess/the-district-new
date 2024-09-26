@@ -35,6 +35,7 @@
 						<th scope="col">categorie</th>
 						<th scope="col">Modifier</th>
 						<th scope="col">Supprimer</th>
+						<th scope="col">Panier </th>
 					</tr>
 				</thead>
 				<tbody>
@@ -48,14 +49,16 @@
 							<td>{{ flat.active }}</td>
 							<td>{{ flat.category }}</td>
 							
-														
-							
-							
 							<td>
 								<a href="{{ path('flat.edit', { id: flat.id }) }}" class="btn btn-info">Modifier</a>
 							</td>
 							<td>
 								<a href="{{ path('flat.delete', { id: flat.id }) }}" class="btn btn-warning">Supprimer</a>
+							</td>
+							<td>
+							<a href="{{path("add", {id: flat.id})}}" class="btn btn-success">
+                        <i class="bi bi-cart-plus"></i> Ajouter
+                    </a>
 							</td>
 						</tr>
 					{% endfor %}
@@ -74,3 +77,4 @@
 		{% endif %}
 	</div>
 {% endblock %}
+

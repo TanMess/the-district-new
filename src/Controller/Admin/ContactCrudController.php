@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Contact;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -20,15 +19,12 @@ class ContactCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+
             ->setEntityLabelInSingular('Demande de contact')
             ->setEntityLabelInPlural('Demandes de contact')
-
             ->setPageTitle("index", "TheDistrict - Administration des demandes de contact")
-
             ->setPaginatorPageSize(20);
-
     }
-
 
     public function configureFields(string $pageName): iterable
     {
@@ -38,7 +34,7 @@ class ContactCrudController extends AbstractCrudController
             TextField::new('fullName'),
             TextField::new('email'),
             TextField::new('subject'),
-            TextareaField::new('message')      
+            TextareaField::new('message')
         ];
     }
 }
