@@ -86,21 +86,7 @@ class FlatType extends AbstractType
                     'class' => 'form-label mt-4'
                 ]
             ])
-            ->add('category', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                    'minlength' => '2',
-                    'maxlength' => '50'                
-                ],
-                'label' => 'Nom',
-                'label_attr' =>[
-                    'class' => 'form-label mt-4'
-                ],
-                'constraints' => [
-                    new Assert\Length(['min' => 2, 'max' => 50]),
-                    new Assert\NotBlank()
-                ]
-            ])
+            ->add('category') 
 
             ->add('submit', SubmitType::class, [
                 'attr' => [
